@@ -1,0 +1,81 @@
+/* .todos {
+    display: flex;
+    gap: 10px;
+}
+.card {
+    border: solid 1px black;
+    width: 20%;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-header button {
+    border: none;
+    background-color: transparent;
+    height: 20px;
+} */
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 20vw;
+    height: 100vh;
+    background-color: bisque;
+}
+
+.project {
+    display: flex;
+}
+
+.project span {
+    flex-grow: 1;
+}
+
+.project button {
+    background-color: transparent;
+    border: none;
+}
+
+.project.selected {
+    border: 1px solid black;
+}
+
+.main {
+    width: 80vw;
+    height: 100vh;
+    background-color: burlywood;
+}
+
+.header {
+    width: 100%;
+    height: 10%;
+    background-color: coral;
+}
+
+.todo-content {
+    display: flex;
+    gap: 10px;
+}
+
+.todo-description {
+    flex-grow: 1;
+}
+
+::backdrop {
+    background-color: rgba(0, 0, 0 , 0.2)
+  }
+

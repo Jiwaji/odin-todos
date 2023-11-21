@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="style.css" rel="stylesheet">
+    </link>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <!-- <div class="projects">
+        <div class="card">
+            <div class="card-header">
+                <h1>Project Name</h1>
+                <button>X</button>
+            </div>
+            <div class="card-content">
+                <ul>
+                    <li>Todo 1<button>Edit</button><button>X</button></li>
+                    <li>Todo 2<button>Edit</button><button>X</button></li>
+                    <li>Todo 3<button>Edit</button><button>X</button></li>
+                </ul>
+                <button>Add Todo</button>
+            </div>
+        </div>
+    </div>
+    <div class="todos">
+        <div class="sample-card card">
+            <div class="card-header">
+                <h1 class="card-title">Title</h1>
+                <button>X</button>
+            </div>
+            <p class="card-description">Description</p>
+        </div>
+    </div> -->
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="projects">
+                <h2>Projects</h2>
+                <ul class="project-list">
+                    <li class="project selected"><span>Project Name</span><button>Edit</button><button>Delete</button>
+                    </li>
+                    <li class="project">Project Name</li>
+                    <li class="project">Project Name</li>
+                </ul>
+                <dialog>
+                    <div>
+                        <label for="project-name-input">Project Name</label>
+                        <input type="text" placeholder="Enter project name" class="project-name-input"
+                            name="project-name-input" />
+                        <button class="project-submit" type="button">Submit</button>
+                        <button autofocus class="close">Close</button>
+                    </div>
+                </dialog>
+                <button class="add-project" type="button">Add new project</button>
+
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="header">
+                <h1 class="project-title">Project Name</h1>
+            </div>
+            <button type="button">Add new todo</button>
+            <div class="todos">
+                <ul>
+                    <li>
+                        <div class="todo">
+                            <h3>Todo Title</h3>
+                            <div class="todo-content">
+                                <p class="todo-description">Todo Description</p>
+                                <p>01/01/2023</p>
+                                <p>Priority</p>
+                                <p>Project Name</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
