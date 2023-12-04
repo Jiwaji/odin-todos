@@ -40,8 +40,10 @@
     <div class="container">
         <div class="sidebar">
             <div class="projects">
-                <h2>Projects</h2>
-                <button class="add-project" type="button">Add new project</button>
+                <header>
+                    <h2>Projects</h2>
+                    <button class="add-project" type="button">+</button>
+                </header>
                 <ul class="project-list">
                     <li class="project selected"><span>Project Name</span><button>Edit</button><button>Delete</button>
                     </li>
@@ -63,13 +65,16 @@
         <div class="main">
             <div class="header">
                 <h1 class="project-title">Project Name</h1>
+                <button type="button" class="add-todo">+</button>
             </div>
-            <button type="button" class="add-todo">Add new todo</button>
             <div class="todos">
                 <ul>
                     <li>
                         <div class="todo">
-                            <h3>Todo Title</h3>
+                            <div class="todo-header">
+                                <h3>Todo Title</h3>
+                                <button class="edit-todo">Edit</button>
+                            </div>
                             <div class="todo-content">
                                 <p class="todo-description">Todo Description</p>
                                 <p>01/01/2023</p>
@@ -89,14 +94,14 @@
                         <div class="form-inputs">
                             <label for="title">Title</label>
                             <input type="text" placeholder="Enter title" class="title-input"
-                                name="title" />
+                                name="title" required />
                         </div>
                     </div>
                     <div class="form-controls">
                         <div class="form-inputs">
                             <label for="description">Description</label>
                             <textarea placeholder="Enter Description" class="description-input"
-                                name="description"></textarea>
+                                name="description" required></textarea>
                         </div>
                     </div>
                     <div class="form-controls">

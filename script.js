@@ -1,76 +1,11 @@
-// const todos = (function() {
-//     let list = []
-//     const add = (todo) => list.push(todo)
-//     const remove = (todoToDelete) => list = list.filter((todo) => todoToDelete === todo )
-//     const get = () => list
-//     const set = (value) => list = value 
-//     const show = () => {
-//         const container = document.querySelector(".todos")
-//         list.forEach((todo) => {
-//             const card = null
-//         })
-//     }
-//     return {
-//         add,
-//         remove,
-//         get
-//     }
-// })()
-
-// const board = (function() {
-//     const setTitle = () => {
-//         return document.createElement('h1')
-//     }
-//     const createCard = (title, description = "") => {
-//         const card = document.createElement('div')
-//         const cardContent = document.querySelector(".sample-card").innerHTML
-//         console.log(document.querySelector(".sample-card").querySelector(".card-title"))
-//         card.classList.add('card')
-//         card.innerHTML = cardContent
-//         return card
-
-//     }
-//     const show = (todos) => {
-//         const container = document.querySelector(".todos")
-//         todos.forEach((todo) => {
-//             console.log(todo)
-//             const card = createCard("Test", "Test")
-//             container.appendChild(card)
-//         })
-//     }
-//     return {
-//         show
-//     }
-// })()
-
-
-
-
-// function todo(title, description) {
-//     console.log(todos.get().length)
-//     const id = Date.now() // generate id
-//     return {
-//         id,
-//         title,
-//         description
-//     }
-// }
-
-// const todo1 = todo("Todo 1", "Description")
-// const todo2 = todo("Todo 2", "Description 2")
-
-// todos.add(todo1)
-// todos.add(todo2)
-// // todos.remove(todo2)
-
-// // board.show(todos.get())
-
 const addProjectDialog = document.querySelector("#add-project-dialog");
 const showButton = document.querySelector(".add-project");
 const closeButton = document.querySelector("#add-project-dialog .close");
 const projectNameInputEl = document.querySelector('.project-name-input')
 let isUpdate = false
+let isEdit = false
 let selectedProjectId = null
+let selectedTodoId = null
 
 // "Show the dialog" button opens the dialog modally
 showButton.addEventListener("click", () => {
@@ -92,7 +27,7 @@ const todoTitleInput = document.querySelector('.todo-title-input')
 
 // "Show the dialog" button opens the dialog modally
 showTodoButton.addEventListener("click", () => {
-    isUpdate = false
+    isEdit = false
     addTodoDialog.showModal();
 });
 
@@ -112,8 +47,17 @@ const projects = (function(){
     const edit = (id, project) => {
         list[id] = project
     }
-    const get = () =>{
+    const getAll = () =>{
         return list
+    }
+    const getProject = (id) => {
+        return list [id]
+    }
+    const get = (id = null) => {
+        if(id !== null) {
+            return getProject(id)
+        }
+        return getAll()
     }
     const remove = (projectId) => {
         list = list.filter((project, id) => id !== projectId)
@@ -136,8 +80,15 @@ const todos = (function() {
         todos.push(todo)
     }
     const get = () => todos
+    const edit =  (id, todo) =>{
+        todos[id] = todo
+    }
+    const remove = (todoId) => {
+        todos = todos.filter((todo, id) => id !== todoId)
+    }
     return {
         add,
+        edit,
         get
     }
 })()
@@ -177,7 +128,8 @@ const display = (function() {
 
             deleteProjectButton.addEventListener('click', function() {
                 projects.remove(index)
-                updateProjectList()
+                // updateProjectList()
+                // updateTodoList()
             })
         })
 
@@ -186,7 +138,6 @@ const display = (function() {
             projectListItem.addEventListener('click', function() {
                 projectListItems.forEach((p) => p.classList.remove('selected'))
                 this.classList.add('selected')
-                console.log(this.classList)
                 selectedProjectId = index
                 projects.setSelectedProject(this.querySelector('span').textContent)
                 display.update()
@@ -196,8 +147,7 @@ const display = (function() {
 
     const updateProjectTitle = () => {
         const projectTitleElement = document.querySelector('.project-title')
-        // projectTitleElement.textContent = projects.getSelectedProject()
-        projectTitleElement.textContent = projects.get()[selectedProjectId].name
+        projectTitleElement.textContent = projects.get(selectedProjectId).name
     }
 
     const updateTodoList = () => {
@@ -209,10 +159,19 @@ const display = (function() {
             1: "Medium",
             2: "High"
         }
-        projectTodos.forEach((todo) =>{
+        projectTodos.forEach((todo, index) =>{
             const todoListItem = document.createElement('li')
             const todoItem = document.createElement('div')
+            const todoHeader = document.createElement('div')
+            todoHeader.classList.add('todo-header')
             const todoTitle = document.createElement('h3')
+            const todoEditButton = document.createElement('button')
+            todoEditButton.textContent = 'Edit'
+            todoEditButton.classList.add('todo-edit')
+            const todoDeleteButton = document.createElement('button')
+            todoDeleteButton.textContent = 'Delete'
+            todoDeleteButton.classList.add('todo-delete')
+            todoHeader.append(todoTitle, todoEditButton, todoDeleteButton)
             todoTitle.textContent = todo.title
             const todoContent = document.createElement('div')
             todoContent.classList.add('todo-content')
@@ -220,17 +179,34 @@ const display = (function() {
             todoDescription.classList.add('todo-description')
             todoDescription.textContent = todo.description
             const todoDueDate = document.createElement('p')
-            const dueDate = new Date(todo.dueDate)
-            todoDueDate.textContent = `${dueDate.getDate()}/${dueDate.getMonth()}/${dueDate.getFullYear()}`
+            if(todo.dueDate !== '') {
+                const dueDate = new Date(todo.dueDate)
+                todoDueDate.textContent = `${dueDate.getDate()}/${dueDate.getMonth() + 1}/${dueDate.getFullYear()}`
+            }
             const todoPriority = document.createElement('p')
             todoPriority.textContent = Priority[todo.priority]
             const todoProject = document.createElement('p')
             todoProject.textContent = projects.get()[selectedProjectId].name
             todoContent.append(todoDescription, todoDueDate, todoPriority, todoProject)
-            todoItem.appendChild(todoTitle)
+            todoItem.appendChild(todoHeader)
             todoItem.appendChild(todoContent)
             todoListItem.appendChild(todoItem)
             todoList.appendChild(todoListItem)
+
+            todoEditButton.addEventListener('click', function() {
+                document.querySelector('.title-input').value = todo.title
+                document.querySelector('.description-input').value = todo.description
+                document.querySelector('.due-date-input').value = todo.dueDate ? new Date(todo.dueDate).toISOString().substring(0, 10) : null
+                document.querySelector('.priority-input').value = todo.priority
+
+                isEdit = true
+                selectedTodoId = index
+                addTodoDialog.show()
+            })
+
+            todoDeleteButton.addEventListener('click', function() {
+                todos.remove(index)
+            })
         })
         
     }
@@ -289,13 +265,20 @@ document.getElementById("addTodoForm").addEventListener("submit", function (e) {
 
     // output as an object
     const newTodo = Object.fromEntries(formData);
+    console.log(Object.entries(newTodo).some((i) => i === ''))
 
     newTodo.priority = Number(newTodo.priority)
-    newTodo.dueDate = new Date(newTodo["due-date"])
+    console.log(newTodo["due-date"] !== '')
+    newTodo.dueDate = newTodo["due-date"] !== '' ? new Date(newTodo["due-date"]) : ''
     delete newTodo["due-date"]
     newTodo.projectId = selectedProjectId
 
-    todos.add(newTodo)
+    if(isEdit){
+        console.log(selectedTodoId, newTodo)
+        todos.edit(selectedTodoId, newTodo)
+    } else {
+        todos.add(newTodo)
+    }
     console.log(todos.get())
     display.updateTodoList()
     addTodoDialog.close()

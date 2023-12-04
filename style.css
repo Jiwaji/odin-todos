@@ -37,6 +37,35 @@ body {
     background-color: bisque;
 }
 
+.projects header {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.projects header h2 {
+    flex-grow: 1
+}
+
+button {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.add-project {
+    background: skyblue;
+    border-radius: 50%;
+    font-size: 20px;
+    border: 1px solid black;
+    height: 40px;
+    width: 40px;
+}
+
+.project-list {
+    padding: 0 10px;
+    margin: 0;
+}
+
 .project {
     display: flex;
 }
@@ -62,13 +91,43 @@ body {
 
 .header {
     width: 100%;
-    height: 10%;
+    height: 20%;
     background-color: coral;
+    display: flex;
+    align-items: center;
+}
+
+.project-title {
+    flex-grow: 1;
+}
+
+.add-todo {
+    background: blue;
+    border-radius: 50%;
+    border: 2px solid skyblue;
+    color: orange;
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
 }
 
 .todos {
     overflow: auto;
     height: 80%;
+}
+
+.todo-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.todo-header h3 {
+    flex-grow: 1
+}
+
+.todo-header button {
+    height: 30px;
 }
 
 .todo-content {
